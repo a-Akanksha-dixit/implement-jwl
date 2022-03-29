@@ -9,7 +9,7 @@ class SettingController extends Controller
     {
         $this->view->setting = Settings::findFirst();
         if ($_POST) {
-            $escaper = new \App\components\MyEscaper();
+            $escaper = new \App\Components\MyEscaper();
             $op = $escaper->sanitize($this->request->getPost('title'));
             $price = $escaper->sanitize($this->request->getPost('price'));
             $stock = $escaper->sanitize($this->request->getPost('stock'));

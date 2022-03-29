@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\Mvc\Controller;
+use App\Components\NotificationsAware;
 
 class ProductController extends Controller
 {
@@ -11,12 +12,18 @@ class ProductController extends Controller
     public function addAction()
     {
         if ($_POST) {
-            $escaper = new \App\components\MyEscaper();
+            $escaper = new \App\Components\MyEscaper();
             $name = $escaper->sanitize($this->request->getPost('product_name'));
             $description = $escaper->sanitize($this->request->getPost('product_description'));
             $tags = $escaper->sanitize($this->request->getPost('tags'));
             $price = $escaper->sanitize($this->request->getPost('price'));
             $stock = $escaper->sanitize($this->request->getPost('stock'));
+            $component = new NotificationsAware();
+            $name = $component->titleOptimization(
+                array('title' => $name, 'tags' => $tags)
+            );
+            $price = $component->defaultPrice($price);
+            $stock = $component->defaultStock($stock);
             $product = new Products();
             try {
                 $product->assign(

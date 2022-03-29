@@ -13,6 +13,9 @@ use Phalcon\Config;
 use Phalcon\Config\ConfigFactory;
 use Phalcon\Escaper;
 use Phalcon\Flash\Direct as FlashDirect;
+use App\Components\NotificationAware;
+use App\Listeners\MotificationsListener;
+use Phalcon\Events\Manager as EventsManager;
 
 $config = new Config([]);
 
@@ -97,8 +100,8 @@ $container->set(
  */
 $loader->registerNamespaces(
     [
-        'App\components' => APP_PATH . '/components',
-        'App\models' =>APP_PATH.'/models',
+        'App\Components' => APP_PATH . '/components',
+        'App\Listeners' => APP_PATH . '/listener',
     ]
 );
 // Register the flash service with custom CSS classes
@@ -108,6 +111,30 @@ $container->set(
         return new FlashDirect();
     }
 );
+// Register Event manager
+$eventsManager = new EventsManager();
+$eventsManager->attach(
+    'notifications',
+    new App\Listeners\NotificationsListener()
+);
+$container->set(
+    'EventsManager',
+    $eventsManager
+);
+// $container->set(
+//     'event',
+//     function () {
+//         $eventsManager = new Phalcon\Events\Manager();
+//         $component     = new App\components\NotificationsAware();
+//         $component->setEventsManager($eventsManager);
+
+//         $eventsManager->attach(
+//             'notifications',
+//             new App\listeners\NotificationsListener()
+//         );
+//         return $component;
+//     }
+// );
 
 // $container->set(
 //     'mongo',

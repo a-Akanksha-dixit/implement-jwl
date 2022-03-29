@@ -1,10 +1,9 @@
 <?php
 
-namespace App\components;
+namespace App\Components;
 
 use Exception;
 use Phalcon\Escaper;
-
 
 /**
  * escaper class return sanitize outputs
