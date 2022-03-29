@@ -7,6 +7,7 @@ class ProductController extends Controller
 {
     public function indexAction()
     {
+        $this->view->products = Products::find();
     }
     public function addAction()
     {
@@ -35,15 +36,14 @@ class ProductController extends Controller
                         'stock'
                     ]
                 );
-                $product->save();
-                if ($product) {
-                    $this->response->setContent("Product Added successFully");
+                if ($product->save()) {
+                    $this->flash->success("Product Added successFully");
                     return;
                 } else {
-                    $this->response->setContent($product->getMessage());
+                    $this->flash->error("One or More field is empty.");
                 }
             } catch (Exception $e) {
-                $this->response->setContent($e);
+                $this->flash->error($e);
             }
         }
     }

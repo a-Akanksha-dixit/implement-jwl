@@ -1,5 +1,9 @@
 <div class="container overfloe-hidden">
+    <div class="alert alert-dangers">
+    <?php echo "<p>" . $this->getContent() . "</p>"; ?>
     <?php echo "<p>" . $this->response->getContent() . "</p>"; ?>
+    </div>
+    
     <?php echo $this->tag->form("product/add"); ?>
     <fieldset>
         <!-- Form Name -->

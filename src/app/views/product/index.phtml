@@ -1,0 +1,25 @@
+<div class="container">
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Product ID</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Product Description</th>
+            <th scope="col">Product Tags</th>
+            <th scope="col">Product Price</th>
+            <th scope="col">Product Stock</th>
+        </tr>
+    </thead>
+<tbody>
+    <?php foreach($products as $product){
+        echo "<tr><td>".$product->product_id."</td>
+            <td>".$product->name."</td>
+            <td>".$product->description."</td>
+            <td>".$product->tags."</td>
+            <td>".$product->price."</td>
+            <td>".$product->stock."</td>
+        </tr>";
+    } ?>
+</tbody>
+</table>
+</div>

@@ -15,9 +15,27 @@
     <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <style>
-        .nav-item:hover{
+        .errorMessage {
+            color: #D8000C;
+            background-color: #FFBABA;
+            border: 1px solid;
+            margin: 10px auto;
+            padding: 10px;
+            width: 300px;
+        }
+        .successMessage {
+            color: white;
+            background-color:green;
+            border: 1px solid;
+            margin: 10px auto;
+            padding: 10px;
+            width: 300px;
+        }
+
+        .nav-item:hover {
             background-color: lightblue;
         }
+
         .bd-placeholder-img {
 
             font-size: 1.125rem;
@@ -38,32 +56,33 @@
 
 <body>
     <div class="container-fluid">
-    <header class="">
-    <!-- navbar start -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a href="#" class="navbar-brand">PriyaXstore</a>
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="navbar-nav">
-                    <a href="#" class="nav-item nav-link active">Home</a>
-                    <a href="http://localhost:8080/product/add" class="nav-item nav-link">Add New Product</a>
-                    <a href="#" class="nav-item nav-link">Cart</a>
-                </div>
-                <div class="navbar-nav ms-auto">
-                    <?php
-                    echo isset($_SESSION['user']) ? '<a href="#" class="nav-item nav-link">Logout</a>' : '
+        <header class="">
+            <!-- navbar start -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <a href="http://localhost:8080/index" class="navbar-brand">PriyaXstore</a>
+                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <div class="navbar-nav">
+                            <a href="http://localhost:8080/index" class="nav-item nav-link active">Home</a>
+                            <a href="http://localhost:8080/product/add" class="nav-item nav-link">Add New Product</a>
+                            <a href="http://localhost:8080/product" class="nav-item nav-link">Product List</a>
+                            <a href="#" class="nav-item nav-link">Cart</a>
+                        </div>
+                        <div class="navbar-nav ms-auto">
+                            <?php
+                            echo isset($_SESSION['user']) ? '<a href="#" class="nav-item nav-link">Logout</a>' : '
                     <a href="login" class="nav-item nav-link">Login</a>';
-                    ?>
-                    
+                            ?>
+
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </nav>
-    <!-- navbar end -->
-</header>
+            </nav>
+            <!-- navbar end -->
+        </header>
         <?php echo $this->getContent();
         echo PHP_EOL;
         ?>
@@ -72,4 +91,3 @@
 
 </html>
 <?php
-

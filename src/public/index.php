@@ -12,6 +12,7 @@ use Phalcon\Db\Adapter\Pdo\Mysql;
 use Phalcon\Config;
 use Phalcon\Config\ConfigFactory;
 use Phalcon\Escaper;
+use Phalcon\Flash\Direct as FlashDirect;
 
 $config = new Config([]);
 
@@ -99,6 +100,14 @@ $loader->registerNamespaces(
         'App\components' => APP_PATH . '/components',
     ]
 );
+// Register the flash service with custom CSS classes
+$container->set(
+    'flash',
+    function () {
+        return new FlashDirect();
+    }
+);
+
 // $container->set(
 //     'mongo',
 //     function () {
