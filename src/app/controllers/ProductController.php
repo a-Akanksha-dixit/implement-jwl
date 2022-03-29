@@ -1,8 +1,6 @@
 <?php
 
 use Phalcon\Mvc\Controller;
-use App\models\Products as Products;
-
 
 class ProductController extends Controller
 {

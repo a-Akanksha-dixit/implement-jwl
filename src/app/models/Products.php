@@ -10,5 +10,9 @@ class Products extends Model
     public $tags;
     public $price;
     public $stock;
+    public function getName()
+    {
+        return $this->name;
+    }
 
 }

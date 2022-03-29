@@ -15,6 +15,11 @@
     <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <style>
+        .table-striped>tbody>tr:nth-child(odd)>td,
+        .table-striped>tbody>tr:nth-child(odd)>th {
+            background-color: lightblue;
+        }
+
         .errorMessage {
             color: #D8000C;
             background-color: #FFBABA;
@@ -71,6 +76,7 @@
                             <a href="http://localhost:8080/product" class="nav-item nav-link">Product List</a>
                             <a href="http://localhost:8080/product/add" class="nav-item nav-link">Add New Product</a>
                             <a href="http://localhost:8080/order" class="nav-item nav-link">Order List</a>
+                            <a href="http://localhost:8080/order/add" class="nav-item nav-link">Order New Item</a>
                         </div>
                     </div>
                 </div>
