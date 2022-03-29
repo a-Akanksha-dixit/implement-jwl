@@ -1,0 +1,25 @@
+<div class="container">
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Order ID</th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Zipcode</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Quantity</th>
+        </tr>
+    </thead>
+<tbody>
+    <?php foreach($orders as $order){
+        echo "<tr><td>".$order->orders->order_id."</td>
+            <td>".$order->orders->customer_name."</td>
+            <td>".$order->orders->address."</td>
+            <td>".$order->orders->zipcode."</td>
+            <td>".$order->product_name."</td>
+            <td>".$order->orders->quantity."</td>
+        </tr>";
+    } ?>
+</tbody>
+</table>
+</div>

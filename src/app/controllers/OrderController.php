@@ -2,13 +2,19 @@
 
 use Phalcon\Mvc\Controller;
 
-
-class IndexController extends Controller
+class OrderController extends Controller
 {
     public function indexAction()
     {
-        
-        
-        // return '<h1>Hello World!</h1>';
+        $query = $this
+            ->modelsManager
+            ->createQuery(
+                'SELECT Products.name as product_name, Orders.* FROM Orders join Products on Orders.product_id=Products.product_id'
+            );
+
+            $this->view->orders =$query->execute();
+    }
+    public function addAction()
+    {
     }
 }

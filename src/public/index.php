@@ -98,6 +98,7 @@ $container->set(
 $loader->registerNamespaces(
     [
         'App\components' => APP_PATH . '/components',
+        'App\models' =>APP_PATH.'/models',
     ]
 );
 // Register the flash service with custom CSS classes
