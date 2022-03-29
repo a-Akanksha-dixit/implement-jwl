@@ -1,14 +1,12 @@
-<h1 class="text-warning d-flex justify-content-center">Add New Product</h1>
 <div class="container overfloe-hidden justify-content-center">
     <div class="row alert alert-dangers">
     <?php echo "<p>" . $this->getContent() . "</p>"; ?>
-    <?php echo "<p>" . $this->response->getContent() . "</p>"; ?>
     </div>
     <div class="row">
     <?php echo $this->tag->form("product/add"); ?>
     <fieldset>
         <!-- Form Name -->
-        <legend>PRODUCTS</legend>
+        <legend class="h1 text-warning">Add new Product</legend>
         <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="product_name">PRODUCT NAME</label>
