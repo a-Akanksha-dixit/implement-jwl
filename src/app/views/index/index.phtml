@@ -1,0 +1,79 @@
+<main>
+    <div class="album py-5 bg-light">
+        <div class="container overflow-hidden">
+            <h1 class="text-center my-5 text-primary">Popular Products</h1>
+            <div class="col" id="popular-products"></div>
+            <hr>
+            <h1 class="text-center my-5 text-primary">All Products</h1>
+            <form class="row row-cols-lg-auto align-items-center mt-0 mb-3">
+                <div class="col-lg-6 col-12">
+                    <label class="visually-hidden" for="inlineFormInputGroupUsername">Search</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="product-search" placeholder="Product, Price, Category">
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-12">
+                    <label class="visually-hidden" for="product-sort">Sort By</label>
+                    <select class="form-select" id="product-sort" name="product-sort">Sort
+                        <option selected value="">Sort by</option>
+                        <option value="asc">Lowest Price first</option>
+                        <option value="desc">Highest Price first</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-3 col-12">
+                    <button type="submit" id="search-btn" class="btn btn-primary w-100">Search</button>
+                </div>
+            </form>
+        </div>
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="product-listing">
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+</main>
+
+<footer class="text-muted py-5">
+    <div class="container">
+        <p class="float-end mb-1">
+            <a href="#">Back to top</a>
+        </p>
+        <p class="mb-1">&copy; CEDCOSS Technologies</p>
+    </div>
+</footer>
+<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+<script src="Assets/js/script.js"></script>
+
+
+</body>
+
+</html>
+<?php
+
+echo "<h1>Hello World</h1>";
+echo "<br>";
+echo "<hr>";
+
+echo PHP_EOL;
+echo $this->tag->linkTo(
+    [
+        'signup',
+        'Sign Up Here!',
+        "class" => "btn btn-warning mr-5"
+    ]
+);
+
+echo $this->tag->linkTo(
+    [
+        'login',
+        'Log in Here!',
+        "class" => "btn btn-success mx-5"
+    ]
+);

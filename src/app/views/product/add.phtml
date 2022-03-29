@@ -1,0 +1,74 @@
+<div class="container overfloe-hidden">
+    <?php echo "<p>" . $this->response->getContent() . "</p>"; ?>
+    <?php echo $this->tag->form("product/add"); ?>
+    <fieldset>
+        <!-- Form Name -->
+        <legend>PRODUCTS</legend>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="product_name">PRODUCT NAME</label>
+            <div class="col-md-4">
+                <?php echo $this->tag->textField([
+                    "product_name",
+                    "placeholder"=>"PRODUCT NAME",
+                    "class"=>"form-control input-md"
+                    ]); ?>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="product_description">PRODUCT DESCRIPTION</label>
+            <div class="col-md-4">
+                <?php echo $this->tag->textField([
+                    "product_description",
+                    "placeholder"=>"PRODUCT DESCRIPTION",
+                    "class"=>"form-control input-md"
+                    ]); ?>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="tags">Tags</label>
+            <div class="col-md-4">
+                <?php echo $this->tag->textField([
+                    "tags",
+                    "placeholder"=>"Category tags",
+                    "class"=>"form-control input-md"
+                    ]); ?>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="price">Product Price</label>
+            <div class="col-md-4">
+                <?php echo $this->tag->textField([
+                    "price",
+                    "placeholder"=>"PRODUCT PRICE",
+                    "class"=>"form-control input-md"
+                    ]); ?>
+            </div>
+        </div><!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="stock">STOCK</label>
+            <div class="col-md-4">
+                <?php echo $this->tag->textField([
+                    "stock",
+                    "placeholder"=>"STOCK ALERT",
+                    "class"=>"form-control input-md"
+                    ]); ?>
+            </div>
+        </div>
+        <!-- Button -->
+        <div class="form-group">
+            <div class="col-md-4">
+            <?php echo $this->tag->submitButton([
+                "Add Product",
+                "class"=>"btn btn-primary"
+                ]); ?>
+            </div>
+        </div>
+
+    </fieldset>
+    </form>
+</div>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>Store Phalcon</title>
+
+    <!-- jquery cdn -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap core CSS -->
+
+    <!-- Bootstrap core CSS -->
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <style>
+        .nav-item:hover{
+            background-color: lightblue;
+        }
+        .bd-placeholder-img {
+
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+    <header class="">
+    <!-- navbar start -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a href="#" class="navbar-brand">PriyaXstore</a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav">
+                    <a href="#" class="nav-item nav-link active">Home</a>
+                    <a href="http://localhost:8080/product/add" class="nav-item nav-link">Add New Product</a>
+                    <a href="#" class="nav-item nav-link">Cart</a>
+                </div>
+                <div class="navbar-nav ms-auto">
+                    <?php
+                    echo isset($_SESSION['user']) ? '<a href="#" class="nav-item nav-link">Logout</a>' : '
+                    <a href="login" class="nav-item nav-link">Login</a>';
+                    ?>
+                    
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- navbar end -->
+</header>
+        <?php echo $this->getContent();
+        echo PHP_EOL;
+        ?>
+    </div>
+</body>
+
+</html>
+<?php
+
