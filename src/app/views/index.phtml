@@ -23,9 +23,10 @@
             padding: 10px;
             width: 300px;
         }
+
         .successMessage {
             color: white;
-            background-color:green;
+            background-color: green;
             border: 1px solid;
             margin: 10px auto;
             padding: 10px;
@@ -69,14 +70,6 @@
                             <a href="http://localhost:8080/index" class="nav-item nav-link active">Home</a>
                             <a href="http://localhost:8080/product/add" class="nav-item nav-link">Add New Product</a>
                             <a href="http://localhost:8080/product" class="nav-item nav-link">Product List</a>
-                            <a href="#" class="nav-item nav-link">Cart</a>
-                        </div>
-                        <div class="navbar-nav ms-auto">
-                            <?php
-                            echo isset($_SESSION['user']) ? '<a href="#" class="nav-item nav-link">Logout</a>' : '
-                    <a href="login" class="nav-item nav-link">Login</a>';
-                            ?>
-
                         </div>
                     </div>
                 </div>
