@@ -1,7 +1,6 @@
 <?php
 
 use Phalcon\Mvc\Controller;
-use App\Components\NotificationsAware;
 
 class ProductController extends Controller
 {
@@ -18,12 +17,13 @@ class ProductController extends Controller
             $tags = $escaper->sanitize($this->request->getPost('tags'));
             $price = $escaper->sanitize($this->request->getPost('price'));
             $stock = $escaper->sanitize($this->request->getPost('stock'));
-            $component = new NotificationsAware();
-            $name = $component->titleOptimization(
+            $name = $this->di->get('EventsManager')->fire(
+                'notifications:titleOptimization',
+                $this,
                 array('title' => $name, 'tags' => $tags)
             );
-            $price = $component->defaultPrice($price);
-            $stock = $component->defaultStock($stock);
+            $price = $this->di->get('EventsManager')->fire('notifications:defaultPrice', $this, $price);
+            $stock = $this->di->get('EventsManager')->fire('notifications:defaultStock', $this, $stock);
             $product = new Products();
             try {
                 $product->assign(

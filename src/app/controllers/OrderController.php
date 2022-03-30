@@ -26,8 +26,7 @@ class OrderController extends Controller
             $zip = $escaper->sanitize($this->request->getPost('zipcode'));
             $product = $escaper->sanitize($this->request->getPost('product'));
             $quantity = $escaper->sanitize($this->request->getPost('quantity'));
-            $component = new NotificationsAware();
-            $name = $component->defaultZipCode($zip);
+            $zip = $this->di->get('EventsManager')->fire('notifications:zipcode', $this, $zip);
             $order = new Orders();
             try {
                 $order->assign(

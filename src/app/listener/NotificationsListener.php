@@ -3,15 +3,13 @@
 namespace App\Listeners;
 
 use Phalcon\Events\Event;
-use Phalcon\Logger;
-use App\Components\NotificationsAware;
 use Settings;
 
 class NotificationsListener
 {
-    public function optimize(
+    public function titleOptimization(
         Event $event,
-        NotificationsAware $component,
+        $component,
         $data
     ) {
         $Settings = Settings::findFirst(['columns' => 'title_optimization']);
@@ -21,11 +19,12 @@ class NotificationsListener
             return $data['title'];
         }
     }
-    public function price(
+    public function defaultPrice(
         Event $event,
-        NotificationsAware $component,
+        $component,
         $price
     ) {
+        
         if (empty($price)) {
             $Settings = Settings::findFirst(['columns' => 'price']);
             return $Settings->price;
@@ -33,9 +32,9 @@ class NotificationsListener
             return $price;
         }
     }
-    public function stock(
+    public function defaultStock(
         Event $event,
-        NotificationsAware $component,
+        $component,
         $stock
     ) {
         if (empty($stock)) {
@@ -45,9 +44,9 @@ class NotificationsListener
             return $stock;
         }
     }
-    public function zipcode(
+    public function defaultZipCode(
         Event $event,
-        NotificationsAware $component,
+        $component,
         $zip
     ) {
         if (empty($zip)) {
@@ -56,5 +55,12 @@ class NotificationsListener
         } else {
             return $zip;
         }
+    }
+    public function test(
+        Event $event,
+        $component,
+        $zip
+    ) {
+        die('success');
     }
 }
