@@ -4,8 +4,12 @@ namespace App\Listeners;
 
 use Phalcon\Events\Event;
 use Settings;
+use Security;
+use Phalcon\Di\Injectable;
+use Phalcon\Mvc\Application;
+use Phalcon\Http\Response;
 
-class NotificationsListener
+class NotificationsListener extends Injectable
 {
     public function titleOptimization(
         Event $event,
@@ -24,7 +28,7 @@ class NotificationsListener
         $component,
         $price
     ) {
-        
+
         if (empty($price)) {
             $Settings = Settings::findFirst(['columns' => 'price']);
             return $Settings->price;
@@ -56,11 +60,21 @@ class NotificationsListener
             return $zip;
         }
     }
-    public function test(
-        Event $event,
-        $component,
-        $zip
-    ) {
-        die('success');
+    public function beforeHandleRequest(Event $event, \Phalcon\Mvc\Application $application)
+    {
+        $aclFile = APP_PATH . '/security/acl.cache';
+        if (true === is_file($aclFile)) {
+            $acl = unserialize(file_get_contents($aclFile));
+            $role = $application->request->get("role");
+            $route = $this->router->getControllerName();
+            $action = $this->router->getActionName();
+            if (!$role || true !== $acl->isAllowed($role, $route, $action)) {
+                echo "acces denied";
+                die();
+            }
+        } else {
+            echo "file does not exits";
+            die();
+        }
     }
 }

@@ -18,7 +18,6 @@ class OrderController extends Controller
     public function addAction()
     {
         $this->view->products = Products::find(['columns' => 'name, product_id']);
-        // die(json_encode(Products::find(['columns' => 'name, product_id'])));
         if ($_POST) {
             $escaper = new \App\Components\MyEscaper();
             $name = $escaper->sanitize($this->request->getPost('customer_name'));

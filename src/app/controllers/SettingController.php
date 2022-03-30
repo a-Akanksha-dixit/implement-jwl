@@ -2,7 +2,6 @@
 
 use Phalcon\Mvc\Controller;
 
-
 class SettingController extends Controller
 {
     public function indexAction()
@@ -37,7 +36,96 @@ class SettingController extends Controller
                     $this->flash->error("One or More field is empty.");
                 }
             } catch (Exception $e) {
-                $this->flash->error($e);
+                $this->flash->error(json_encode($e));
+            }
+        }
+    }
+    public function addRoleAction()
+    {
+        if ($_POST) {
+            $escaper = new \App\Components\MyEscaper();
+            $newRole = $escaper->sanitize($this->request->getPost('role'));
+            $role = new Roles();
+            try {
+                $role->assign(
+                    array(
+                        'role' => $newRole,
+                    ),
+                    [
+                        'role',
+                    ]
+                );
+                if ($role->save()) {
+                    $this->flash->success("New role added successFully");
+                    return;
+                } else {
+                    $this->flash->error("One or More field is empty.");
+                }
+            } catch (Exception $e) {
+                $this->flash->error(json_encode($e));
+            }
+        }
+    }
+    public function addComponentAction()
+    {
+        if ($_POST) {
+            $escaper = new \App\Components\MyEscaper();
+            $newComponent = $escaper->sanitize($this->request->getPost('component'));
+            $newAction = $escaper->sanitize($this->request->getPost('action'));
+            $component = new Components();
+            try {
+                $component->assign(
+                    array(
+                        'name' => $newComponent,
+                        'actions' => $newAction
+                    ),
+                    [
+                        'name',
+                        'actions'
+                    ]
+                );
+                if ($component->save()) {
+                    $this->flash->success("New Component added successFully");
+                    return;
+                } else {
+                    $this->flash->error("One or More field is empty.");
+                }
+            } catch (Exception $e) {
+                $this->flash->error(json_encode($e));
+            }
+        }
+    }
+    public function addAclAction()
+    {
+        $this->view->roles = Roles::find();
+        $this->view->components = Components::find();
+        if ($_POST) {
+            $escaper = new \App\Components\MyEscaper();
+            $role = $escaper->sanitize($this->request->getPost('role'));
+            $permission = new Permissions();
+            try {
+                if (!empty($_POST['check_list'])) {
+                    foreach ($_POST['check_list'] as $check) {
+                        $data = explode("->", $check);
+                        $permission = new Permissions();
+                        $permission->assign(
+                            array(
+                                'role' => $role,
+                                'component' => $data[0],
+                                'action' => $data[1]
+                            ),
+                            [
+                                'role',
+                                'component',
+                                'action'
+                            ]
+                        );
+                        $permission->save();
+                    }
+                    $this->flash->success("New ACL Permission added successFully");
+                }
+            } catch (Exception $e) {
+                $this->flash->error(json_encode($e));
             }
         }
     }

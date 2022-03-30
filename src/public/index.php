@@ -13,8 +13,6 @@ use Phalcon\Config;
 use Phalcon\Config\ConfigFactory;
 use Phalcon\Escaper;
 use Phalcon\Flash\Direct as FlashDirect;
-use App\Components\NotificationAware;
-use App\Listeners\MotificationsListener;
 use Phalcon\Events\Manager as EventsManager;
 
 $config = new Config([]);
@@ -117,24 +115,16 @@ $eventsManager->attach(
     'notifications',
     new App\Listeners\NotificationsListener()
 );
+$application->setEventsManager($eventsManager);
+$eventsManager->attach(
+    'application:beforeHandleRequest',
+    new App\Listeners\NotificationsListener()
+);
 $container->set(
     'EventsManager',
     $eventsManager
 );
-// $container->set(
-//     'event',
-//     function () {
-//         $eventsManager = new Phalcon\Events\Manager();
-//         $component     = new App\components\NotificationsAware();
-//         $component->setEventsManager($eventsManager);
 
-//         $eventsManager->attach(
-//             'notifications',
-//             new App\listeners\NotificationsListener()
-//         );
-//         return $component;
-//     }
-// );
 
 // $container->set(
 //     'mongo',

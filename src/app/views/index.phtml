@@ -19,9 +19,11 @@
         .table-striped>tbody>tr:nth-child(odd)>th {
             background-color: lightblue;
         }
-        .table-striped>thead{
+
+        .table-striped>thead {
             background-color: #dbac3d;
         }
+
         .errorMessage {
             color: #D8000C;
             background-color: #FFBABA;
@@ -40,7 +42,8 @@
             width: 300px;
         }
 
-        .nav-item:hover,.navbar-brand:hover {
+        .nav-item:hover,
+        .navbar-brand:hover {
             background-color: lightblue;
         }
 
@@ -74,11 +77,15 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <div class="navbar-nav">
-                            <a href="http://localhost:8080/product" class="nav-item nav-link">Product List</a>
+                            <a href="http://localhost:8080/product/index" class="nav-item nav-link">Product List</a>
                             <a href="http://localhost:8080/product/add" class="nav-item nav-link">Add New Product</a>
-                            <a href="http://localhost:8080/order" class="nav-item nav-link">Order List</a>
+                            <a href="http://localhost:8080/order/index" class="nav-item nav-link">Order List</a>
                             <a href="http://localhost:8080/order/add" class="nav-item nav-link">Order New Item</a>
-                            <a href="http://localhost:8080/setting" class="nav-item nav-link">Settings</a>
+                            <a href="http://localhost:8080/setting/index" class="nav-item nav-link">Settings</a>
+                            <?php echo $this->tag->linkTo(['setting/addRole', 'Add New Role', 'class' => 'nav-item nav-link']);
+                            echo $this->tag->linkTo(['setting/addComponent', 'Add New Component', 'class' => 'nav-item nav-link']);
+                            echo $this->tag->linkTo(['setting/addAcl', 'Add ACL', 'class' => 'nav-item nav-link']);
+                            ?>
                         </div>
                     </div>
                 </div>
