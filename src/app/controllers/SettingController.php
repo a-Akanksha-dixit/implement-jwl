@@ -122,6 +122,8 @@ class SettingController extends Controller
         if ($_POST) {
             $escaper = new \App\Components\MyEscaper();
             $role = $escaper->sanitize($this->request->getPost('role'));
+            $roles = Permissions::find("role='".$role."'");
+            $roles->delete();
             $permission = new Permissions();
             try {
                 if (!empty($_POST['check_list'])) {
