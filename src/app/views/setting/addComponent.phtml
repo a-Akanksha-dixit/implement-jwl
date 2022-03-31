@@ -1,4 +1,4 @@
-<div class="container overfloe-hidden">
+<div class="container m-auto w-50 overfloe-hidden">
     <div class="alert alert-dangers">
         <?php echo "<p>" . $this->getContent() . "</p>"; ?>
     </div>
@@ -10,7 +10,7 @@
         <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="component">Component Name</label>
-            <div class="col-md-4">
+            <div class="col-8">
                 <?php echo $this->tag->textField([
                     "component",
                     "placeholder" => "NEW COMPONENT",
@@ -21,7 +21,7 @@
         <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="action">Action Name</label>
-            <div class="col-md-4">
+            <div class="col-8">
                 <?php echo $this->tag->textField([
                     "action",
                     "placeholder" => "SEPRATE BY COMMA",

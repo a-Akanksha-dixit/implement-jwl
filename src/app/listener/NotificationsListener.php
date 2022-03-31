@@ -4,8 +4,11 @@ namespace App\Listeners;
 
 use Phalcon\Events\Event;
 use Settings;
-use Security;
+use Roles;
+use Components;
+use Permissions;
 use Phalcon\Di\Injectable;
+use Phalcon\Acl\Adapter\Memory;
 use Phalcon\Mvc\Application;
 use Phalcon\Http\Response;
 
@@ -73,8 +76,48 @@ class NotificationsListener extends Injectable
                 die();
             }
         } else {
-            echo "file does not exits";
-            die();
+            $this->di->get('EventsManager')->fire('notifications:getPermissions', $this);
+        }
+    }
+    public function getPermissions(
+        Event $event,
+        $component
+    ) {
+        $trigger = new \App\Components\TriggerHelper();
+        if (!$trigger->hasAlreadyfired()) {
+            $aclFile = APP_PATH . '/security/acl.cache';
+            if (true !== is_file($aclFile)) {
+                $acl = new Memory();
+            } else {
+                $acl = unserialize(
+                    file_get_contents($aclFile)
+                );
+            }
+            $roles = Roles::find();
+            $components = Components::find();
+            $permissions = Permissions::find();
+            foreach ($roles as $r) {
+                $acl->addRole($r->role);
+            }
+            foreach ($components as $com) {
+                $action = explode(',', $com->actions);
+                $acl->addComponent(
+                    $com->name,
+                    $action
+                );
+            }
+            foreach ($permissions as $per) {
+                $acl->allow($per->role, $per->component, $per->action);
+                file_put_contents(
+                    $aclFile,
+                    serialize($acl)
+                );
+            }
+            file_put_contents(
+                $aclFile,
+                serialize($acl)
+            );
+            $trigger->setAlreadyfired();
         }
     }
 }

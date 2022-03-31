@@ -1,15 +1,15 @@
-<div class="container overfloe-hidden">
+<div class="container m-auto w-50 overfloe-hidden">
     <div class="alert alert-dangers">
         <?php echo "<p>" . $this->getContent() . "</p>"; ?>
     </div>
 
     <?php echo $this->tag->form("setting/addAcl"); ?>
-    <fieldset>
+    <fieldset class="col-8">
         <!-- Form Name -->
         <legend class="h1 text-warning">Add new ACL</legend>
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="component">Select Role</label>
+            <label class=" control-label" for="component">Select Role</label>
             <div class="col-md-4">
                 <select name="role" id="role">
                     <?php
@@ -29,7 +29,7 @@
                 <label for="check_list[]">' . $action . '</label><br>';
             }
             echo '<div class="form-group bg-light">
-                <label class="col-md-4 control-label bg-warning" for="action">' . $component->name . '</label>
+                <label class="col-5 control-label bg-warning" for="action">' . $component->name . '</label>
                 <div class="col-md-4">' . $html . '</div></div>';
         }
         ?>
