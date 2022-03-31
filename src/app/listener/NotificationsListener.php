@@ -118,10 +118,10 @@ class NotificationsListener extends Injectable
             $route = $this->router->getControllerName()?? 'index';
             $action = $this->router->getActionName() ?? 'index';
             // $role = empty($role)?'manager':$role;
-            if (true !== $acl->isAllowed($role, $route, $action)) {
-                echo "<h1>You do not have access to this page</h1>";
-                die();
-            }
+            // if (true !== $acl->isAllowed($role, $route, $action)) {
+            //     echo "<h1>You do not have access to this page</h1>";
+            //     die();
+            // }
         } else {
             $this->di->get('EventsManager')->fire('notifications:getPermissions', $this);
         }
