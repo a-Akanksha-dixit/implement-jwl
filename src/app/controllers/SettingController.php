@@ -4,6 +4,11 @@ use Phalcon\Mvc\Controller;
 
 class SettingController extends Controller
 {
+    /**
+     * setting for title optimization, default price and stock
+     *
+     * @return void
+     */
     public function indexAction()
     {
         $this->view->setting = Settings::findFirst();
@@ -40,6 +45,11 @@ class SettingController extends Controller
             }
         }
     }
+    /**
+     * add new user role
+     *
+     * @return void
+     */
     public function addRoleAction()
     {
         if ($_POST) {
@@ -66,6 +76,11 @@ class SettingController extends Controller
             }
         }
     }
+    /**
+     * add new component
+     *
+     * @return void
+     */
     public function addComponentAction()
     {
         if ($_POST) {
@@ -95,6 +110,11 @@ class SettingController extends Controller
             }
         }
     }
+    /**
+     * add new acl permission
+     *
+     * @return void
+     */
     public function addAclAction()
     {
         $this->view->roles = Roles::find();

@@ -5,6 +5,11 @@ use App\Components\NotificationsAware;
 
 class OrderController extends Controller
 {
+    /**
+     * order list item
+     *
+     * @return void
+     */
     public function indexAction()
     {
         $query = $this
@@ -15,6 +20,12 @@ class OrderController extends Controller
 
         $this->view->orders = $query->execute();
     }
+
+    /**
+     * add new order for product
+     *
+     * @return void
+     */
     public function addAction()
     {
         $this->view->products = Products::find(['columns' => 'name, product_id']);

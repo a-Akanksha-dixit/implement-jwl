@@ -10,8 +10,20 @@ use Permissions;
 use Phalcon\Di\Injectable;
 use Phalcon\Acl\Adapter\Memory;
 
+/**
+ * event listener class
+ */
 class NotificationsListener extends Injectable
 {
+
+    /**
+     * title optimization  event
+     *
+     * @param Event $event
+     * @param [type] $component
+     * @param [type] $data
+     * @return void
+     */
     public function titleOptimization(
         Event $event,
         $component,
@@ -24,6 +36,15 @@ class NotificationsListener extends Injectable
             return $data['title'];
         }
     }
+    
+    /**
+     * set default price event
+     *
+     * @param Event $event
+     * @param [type] $component
+     * @param [type] $price
+     * @return void
+     */
     public function defaultPrice(
         Event $event,
         $component,
@@ -37,6 +58,15 @@ class NotificationsListener extends Injectable
             return $price;
         }
     }
+
+    /**
+     * set default stock event
+     *
+     * @param Event $event
+     * @param [type] $component
+     * @param [type] $stock
+     * @return void
+     */
     public function defaultStock(
         Event $event,
         $component,
@@ -49,6 +79,15 @@ class NotificationsListener extends Injectable
             return $stock;
         }
     }
+
+    /**
+     * set default zip code event
+     *
+     * @param Event $event
+     * @param [type] $component
+     * @param [type] $zip
+     * @return void
+     */
     public function defaultZipCode(
         Event $event,
         $component,
@@ -61,6 +100,14 @@ class NotificationsListener extends Injectable
             return $zip;
         }
     }
+
+    /**
+     * before loading url event
+     *
+     * @param Event $event
+     * @param \Phalcon\Mvc\Application $application
+     * @return void
+     */
     public function beforeHandleRequest(Event $event, \Phalcon\Mvc\Application $application)
     {
         $aclFile = APP_PATH . '/security/acl.cache';
@@ -77,6 +124,14 @@ class NotificationsListener extends Injectable
             $this->di->get('EventsManager')->fire('notifications:getPermissions', $this);
         }
     }
+
+    /**
+     * get user permissions from db event
+     *
+     * @param Event $event
+     * @param [type] $component
+     * @return void
+     */
     public function getPermissions(
         Event $event,
         $component

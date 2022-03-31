@@ -4,10 +4,20 @@ use Phalcon\Mvc\Controller;
 
 class ProductController extends Controller
 {
+    /**
+     * product list view
+     *
+     * @return void
+     */
     public function indexAction()
     {
         $this->view->products = Products::find();
     }
+    /**
+     * add new product
+     *
+     * @return void
+     */
     public function addAction()
     {
         if ($_POST) {
