@@ -9,6 +9,11 @@ use Components;
 use Permissions;
 use Phalcon\Di\Injectable;
 use Phalcon\Acl\Adapter\Memory;
+use Phalcon\Security\JWT\Builder;
+use Phalcon\Security\JWT\Signer\Hmac;
+use Phalcon\Exception;
+use Phalcon\Security\JWT\Token\Parser;
+use Phalcon\Security\JWT\Validator;
 
 /**
  * event listener class
@@ -111,19 +116,37 @@ class NotificationsListener extends Injectable
      */
     public function beforeHandleRequest(Event $event, \Phalcon\Mvc\Application $application)
     {
-        $aclFile = APP_PATH . '/security/acl.cache';
-        if (true === is_file($aclFile)) {
-            $acl = unserialize(file_get_contents($aclFile));
-            $role = $application->request->get("role") ?? 'guest';
-            $route = $this->router->getControllerName()?? 'index';
-            $action = $this->router->getActionName() ?? 'index';
-            // $role = empty($role)?'manager':$role;
-            // if (true !== $acl->isAllowed($role, $route, $action)) {
-            //     echo "<h1>You do not have access to this page</h1>";
-            //     die();
-            // }
+        $bearer = $application->request->get("bearer");
+        if ($bearer) {
+            $parser = new Parser();
+            $now = $this->di->get('dateTime');
+            $expires = $now->getTimestamp();
+            $token = $parser->parse($bearer);
+            try {
+                $validator = new Validator($token, 100);
+                $validator->validateExpiration($expires);
+                $role_id = $token->getClaims()->getPayload()['sub'];
+                $role = Roles::findFirst($role_id)->role;
+                // die($role);
+                $aclFile = APP_PATH . '/security/acl.cache';
+                if (true === is_file($aclFile)) {
+                    $acl = unserialize(file_get_contents($aclFile));
+                    $route = $this->router->getControllerName() ?? 'index';
+                    $action = $this->router->getActionName() ?? 'index';
+                    if (true !== $acl->isAllowed($role, $route, $action)) {
+                        echo "<h1>You do not have access to this page</h1>";
+                        die();
+                    }
+                } else {
+                    $this->di->get('EventsManager')->fire('notifications:getPermissions', $this);
+                }
+            } catch (Exception $e) {
+                echo '<h1>Token validation failed.</h1>';
+                die;
+            }
         } else {
-            $this->di->get('EventsManager')->fire('notifications:getPermissions', $this);
+            echo '<h1>Bearer is not found</h1>';
+            die;
         }
     }
 
@@ -170,5 +193,38 @@ class NotificationsListener extends Injectable
             $aclFile,
             serialize($acl)
         );
+    }
+
+
+    public function generateToken(
+        Event $event,
+        $component,
+        $role
+    ) {
+        $signer  = new Hmac();
+        $builder = new Builder($signer);
+        $now = $this->di->get("dateTime");
+        // $now        = new DateTimeImmutable();
+        $issued     = $now->getTimestamp();
+        $notBefore  = $now->modify('-1 minute')->getTimestamp();
+        $expires    = $now->modify('+1 day')->getTimestamp();
+        $passphrase = 'QcMpZ&b&mo3TPsPk';
+
+        // Setup
+        $builder
+            // ->setAudience('https://target.phalcon.io')  // aud
+            ->setContentType('application/json')        // cty - header
+            ->setExpirationTime($expires)               // exp 
+            // ->setId('abc')                    // JTI id 
+            ->setIssuedAt($issued)                      // iat 
+            ->setIssuer('https://phalcon.io')           // iss 
+            ->setNotBefore($notBefore)                  // nbf
+            ->setSubject($role)   // sub
+            ->setPassphrase($passphrase);
+        // password 
+        $tokenObject = $builder->getToken();
+
+        // The token
+        return $tokenObject->getToken();
     }
 }

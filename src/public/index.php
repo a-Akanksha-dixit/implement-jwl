@@ -105,6 +105,12 @@ $loader->registerNamespaces(
         'App\Listeners' => APP_PATH . '/listener',
     ]
 );
+$container->set(
+    'dateTime',
+    function () {
+        return new DateTimeImmutable();
+    }
+);
 // Register the flash service with custom CSS classes
 $container->set(
     'flash',

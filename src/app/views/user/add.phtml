@@ -1,0 +1,57 @@
+<div class="container m-auto w-50 overfloe-hidden">
+    <div class="alert alert-dangers">
+        <?php echo "<p>" . $this->getContent() . "</p>"; ?>
+    </div>
+
+    <form method="post">
+        <fieldset>
+            <!-- Form Name -->
+            <legend class="h1 text-warning">Add new User</legend>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="name">User Name</label>
+                <div class="col-md-4">
+                    <?php echo $this->tag->textField([
+                        "name",
+                        "placeholder" => "NAME OF USER",
+                        "class" => "form-control input-md",
+                    ]); ?>
+                </div>
+            </div>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="email">User E-mail</label>
+                <div class="col-md-4">
+                    <?php echo $this->tag->emailField([
+                        "email",
+                        "placeholder" => "E-Mail OF USER",
+                        "class" => "form-control input-md",
+                    ]); ?>
+                </div>
+            </div>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class=" control-label" for="role">Select Role</label>
+                <div class="col-md-4">
+                    <select name="role" id="role">
+                        <?php
+                        foreach ($roles as $role) {
+                            echo "<option value='" . $role->id . "'>" . $role->role . "</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
+            <!-- Button -->
+            <div class="form-group">
+                <div class="col-md-4">
+                    <?php echo $this->tag->submitButton([
+                        "Add User and Generate Token",
+                        "class" => "btn btn-primary"
+                    ]); ?>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+</div>

@@ -39,7 +39,9 @@
             border: 1px solid;
             margin: 10px auto;
             padding: 10px;
-            width: 300px;
+            height: auto;
+            word-wrap: break-word;
+            /* width: 10; */
         }
 
         .nav-item:hover,
@@ -85,6 +87,7 @@
                             <?php echo $this->tag->linkTo(['setting/addRole', 'Add New Role', 'class' => 'nav-item nav-link']);
                             echo $this->tag->linkTo(['setting/addComponent', 'Add New Component', 'class' => 'nav-item nav-link']);
                             echo $this->tag->linkTo(['setting/addAcl', 'Add ACL', 'class' => 'nav-item nav-link']);
+                            echo $this->tag->linkTo(['user/add', 'Add New User', 'class' => 'nav-item nav-link']);
                             ?>
                         </div>
                     </div>
