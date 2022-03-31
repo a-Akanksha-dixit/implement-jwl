@@ -144,6 +144,7 @@ class SettingController extends Controller
                         );
                         $permission->save();
                     }
+                    $this->di->get('EventsManager')->fire('notifications:getPermissions', $this);
                     $this->flash->success("New ACL Permission added successFully");
                 }
             } catch (Exception $e) {

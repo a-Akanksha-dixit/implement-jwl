@@ -14,6 +14,7 @@ use Phalcon\Config\ConfigFactory;
 use Phalcon\Escaper;
 use Phalcon\Flash\Direct as FlashDirect;
 use Phalcon\Events\Manager as EventsManager;
+use Phalcon\Mvc\Router;
 
 $config = new Config([]);
 
@@ -34,6 +35,8 @@ $loader->registerDirs(
 $loader->register();
 
 $container = new FactoryDefault();
+
+
 
 $container->set(
     'view',

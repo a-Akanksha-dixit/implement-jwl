@@ -3,42 +3,42 @@
         <?php echo "<p>" . $this->getContent() . "</p>"; ?>
     </div>
 
-    <?php echo $this->tag->form("setting/addComponent"); ?>
-    <fieldset>
-        <!-- Form Name -->
-        <legend class="h1 text-warning">Add new Component</legend>
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="component">Component Name</label>
-            <div class="col-8">
-                <?php echo $this->tag->textField([
-                    "component",
-                    "placeholder" => "NEW COMPONENT",
-                    "class" => "form-control input-md",
-                ]); ?>
+    <form method="post">
+        <fieldset>
+            <!-- Form Name -->
+            <legend class="h1 text-warning">Add new Component</legend>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="component">Component Name</label>
+                <div class="col-8">
+                    <?php echo $this->tag->textField([
+                        "component",
+                        "placeholder" => "NEW COMPONENT",
+                        "class" => "form-control input-md",
+                    ]); ?>
+                </div>
             </div>
-        </div>
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="action">Action Name</label>
-            <div class="col-8">
-                <?php echo $this->tag->textField([
-                    "action",
-                    "placeholder" => "SEPRATE BY COMMA",
-                    "class" => "form-control input-md",
-                ]); ?>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="action">Action Name</label>
+                <div class="col-8">
+                    <?php echo $this->tag->textField([
+                        "action",
+                        "placeholder" => "SEPRATE BY COMMA",
+                        "class" => "form-control input-md",
+                    ]); ?>
+                </div>
             </div>
-        </div>
-        <!-- Button -->
-        <div class="form-group">
-            <div class="col-md-4">
-                <?php echo $this->tag->submitButton([
-                    "Add Component",
-                    "class" => "btn btn-primary"
-                ]); ?>
+            <!-- Button -->
+            <div class="form-group">
+                <div class="col-md-4">
+                    <?php echo $this->tag->submitButton([
+                        "Add Component",
+                        "class" => "btn btn-primary"
+                    ]); ?>
+                </div>
             </div>
-        </div> 
 
-    </fieldset>
+        </fieldset>
     </form>
 </div>

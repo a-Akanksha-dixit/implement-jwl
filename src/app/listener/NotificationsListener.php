@@ -36,7 +36,7 @@ class NotificationsListener extends Injectable
             return $data['title'];
         }
     }
-    
+
     /**
      * set default price event
      *
@@ -93,6 +93,7 @@ class NotificationsListener extends Injectable
         $component,
         $zip
     ) {
+        // return 'test';
         if (empty($zip)) {
             $Settings = Settings::findFirst(['columns' => 'zipcode']);
             return $Settings->zipcode;
@@ -113,11 +114,12 @@ class NotificationsListener extends Injectable
         $aclFile = APP_PATH . '/security/acl.cache';
         if (true === is_file($aclFile)) {
             $acl = unserialize(file_get_contents($aclFile));
-            $role = $application->request->get("role");
-            $route = $this->router->getControllerName();
-            $action = $this->router->getActionName();
-            if (!$role || true !== $acl->isAllowed($role, $route, $action)) {
-                echo "acces denied";
+            $role = $application->request->get("role") ?? 'guest';
+            $route = $this->router->getControllerName()?? 'index';
+            $action = $this->router->getActionName() ?? 'index';
+            // $role = empty($role)?'manager':$role;
+            if (true !== $acl->isAllowed($role, $route, $action)) {
+                echo "<h1>You do not have access to this page</h1>";
                 die();
             }
         } else {

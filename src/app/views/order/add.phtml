@@ -4,77 +4,77 @@
         <?php echo "<p>" . $this->response->getContent() . "</p>"; ?>
     </div>
 
-    <?php echo $this->tag->form("order/add"); ?>
-    <fieldset>
-        <!-- Form Name -->
-        <legend class="h1 text-warning">Add new Order</legend>
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="customer_name">Customer NAME</label>
-            <div class="col-md-4">
-                <?php echo $this->tag->textField([
-                    "customer_name",
-                    "placeholder" => "Customer NAME",
-                    "class" => "form-control input-md"
-                ]); ?>
+    <form method="post">
+        <fieldset>
+            <!-- Form Name -->
+            <legend class="h1 text-warning">Add new Order</legend>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="customer_name">Customer NAME</label>
+                <div class="col-md-4">
+                    <?php echo $this->tag->textField([
+                        "customer_name",
+                        "placeholder" => "Customer NAME",
+                        "class" => "form-control input-md"
+                    ]); ?>
+                </div>
             </div>
-        </div>
 
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="address">Address</label>
-            <div class="col-md-4">
-                <?php echo $this->tag->textField([
-                    "address",
-                    "placeholder" => "ADDRESS",
-                    "class" => "form-control input-md"
-                ]); ?>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="address">Address</label>
+                <div class="col-md-4">
+                    <?php echo $this->tag->textField([
+                        "address",
+                        "placeholder" => "ADDRESS",
+                        "class" => "form-control input-md"
+                    ]); ?>
+                </div>
             </div>
-        </div>
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="zipcode">Zipcode</label>
-            <div class="col-md-4">
-                <?php echo $this->tag->textField([
-                    "zipcode",
-                    "placeholder" => "Category tags",
-                    "class" => "form-control input-md"
-                ]); ?>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="zipcode">Zipcode</label>
+                <div class="col-md-4">
+                    <?php echo $this->tag->textField([
+                        "zipcode",
+                        "placeholder" => "Category tags",
+                        "class" => "form-control input-md"
+                    ]); ?>
+                </div>
             </div>
-        </div>
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="price">Product Name</label>
-            <div class="col-md-4">
-                <select name="product" id="product">
-                    <?php
-                    foreach ($products as $product) {
-                        echo "<option value='" . $product->product_id . "'>" . $product->name . "</option>";
-                    } ?>
-                </select>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="price">Product Name</label>
+                <div class="col-md-4">
+                    <select name="product" id="product">
+                        <?php
+                        foreach ($products as $product) {
+                            echo "<option value='" . $product->product_id . "'>" . $product->name . "</option>";
+                        } ?>
+                    </select>
 
+                </div>
+            </div><!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="quantity">Quantity</label>
+                <div class="col-md-4">
+                    <?php echo $this->tag->textField([
+                        "quantity",
+                        "placeholder" => "PRODUCT QUANTITY",
+                        "class" => "form-control input-md"
+                    ]); ?>
+                </div>
             </div>
-        </div><!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="quantity">Quantity</label>
-            <div class="col-md-4">
-                <?php echo $this->tag->textField([
-                    "quantity",
-                    "placeholder" => "PRODUCT QUANTITY",
-                    "class" => "form-control input-md"
-                ]); ?>
+            <!-- Button -->
+            <div class="form-group">
+                <div class="col-md-4">
+                    <?php echo $this->tag->submitButton([
+                        "Add Product",
+                        "class" => "btn btn-primary"
+                    ]); ?>
+                </div>
             </div>
-        </div>
-        <!-- Button -->
-        <div class="form-group">
-            <div class="col-md-4">
-                <?php echo $this->tag->submitButton([
-                    "Add Product",
-                    "class" => "btn btn-primary"
-                ]); ?>
-            </div>
-        </div>
 
-    </fieldset>
+        </fieldset>
     </form>
 </div>
