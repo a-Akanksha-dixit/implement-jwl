@@ -9,11 +9,13 @@ use Components;
 use Permissions;
 use Phalcon\Di\Injectable;
 use Phalcon\Acl\Adapter\Memory;
-use Phalcon\Security\JWT\Builder;
-use Phalcon\Security\JWT\Signer\Hmac;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use Phalcon\Exception;
 use Phalcon\Security\JWT\Token\Parser;
 use Phalcon\Security\JWT\Validator;
+use Phalcon\Security\JWT\Builder;
+use Phalcon\Security\JWT\Signer\Hmac;
 
 /**
  * event listener class
@@ -118,6 +120,7 @@ class NotificationsListener extends Injectable
     {
         $bearer = $application->request->get("bearer");
         if ($bearer) {
+            $key = "example_key";
             $parser = new Parser();
             $now = $this->di->get('dateTime');
             $expires = $now->getTimestamp();
@@ -125,16 +128,21 @@ class NotificationsListener extends Injectable
             try {
                 $validator = new Validator($token, 100);
                 $validator->validateExpiration($expires);
-                $role_id = $token->getClaims()->getPayload()['sub'];
+                $jwt = JWT::decode($bearer, new Key($key, 'HS256'));
+                $role_id = $jwt->sub;
+                $name = $jwt->nam;
                 $role = Roles::findFirst($role_id)->role;
-                // die($role);
                 $aclFile = APP_PATH . '/security/acl.cache';
                 if (true === is_file($aclFile)) {
                     $acl = unserialize(file_get_contents($aclFile));
                     $route = $this->router->getControllerName() ?? 'index';
                     $action = $this->router->getActionName() ?? 'index';
                     if (true !== $acl->isAllowed($role, $route, $action)) {
-                        echo "<h1>You do not have access to this page</h1>";
+                        echo "<h1>Hello " . $name . " You do not have access to this page.</h1>";
+                        echo $this->tag->linkTo([
+                            "index/index",
+                            "Return to Home Page",
+                        ]);
                         die();
                     }
                 } else {
@@ -142,6 +150,10 @@ class NotificationsListener extends Injectable
                 }
             } catch (Exception $e) {
                 echo '<h1>Token validation failed.</h1>';
+                echo $this->tag->linkTo([
+                    "index/index",
+                    "Return to Home Page",
+                ]);
                 die;
             }
         } else {
@@ -182,6 +194,7 @@ class NotificationsListener extends Injectable
                 $action
             );
         }
+        $acl->allow('admin', '*', '*');
         foreach ($permissions as $per) {
             $acl->allow($per->role, $per->component, $per->action);
             file_put_contents(
@@ -199,32 +212,20 @@ class NotificationsListener extends Injectable
     public function generateToken(
         Event $event,
         $component,
-        $role
+        $data
     ) {
-        $signer  = new Hmac();
-        $builder = new Builder($signer);
-        $now = $this->di->get("dateTime");
-        // $now        = new DateTimeImmutable();
-        $issued     = $now->getTimestamp();
-        $notBefore  = $now->modify('-1 minute')->getTimestamp();
-        $expires    = $now->modify('+1 day')->getTimestamp();
-        $passphrase = 'QcMpZ&b&mo3TPsPk';
-
-        // Setup
-        $builder
-            // ->setAudience('https://target.phalcon.io')  // aud
-            ->setContentType('application/json')        // cty - header
-            ->setExpirationTime($expires)               // exp 
-            // ->setId('abc')                    // JTI id 
-            ->setIssuedAt($issued)                      // iat 
-            ->setIssuer('https://phalcon.io')           // iss 
-            ->setNotBefore($notBefore)                  // nbf
-            ->setSubject($role)   // sub
-            ->setPassphrase($passphrase);
-        // password 
-        $tokenObject = $builder->getToken();
-
-        // The token
-        return $tokenObject->getToken();
+        $key = "example_key";
+        $now = $this->di->get('dateTime');
+        // $timestap = $now->getTimestamp();
+        $payload = array(
+            "iss" => "http://example.org",
+            "aud" => "http://example.com",
+            "iat" => $now->getTimeStamp(),
+            "nbf" => $now->modify("-1 minute")->getTimeStamp(),
+            "exp" => $now->modify("+1 day")->getTimeStamp(),
+            "nam" => $data['name'],
+            "sub" => $data['role']
+        );
+        return JWT::encode($payload, $key, 'HS256');
     }
 }

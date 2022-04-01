@@ -28,7 +28,7 @@ class UserController extends Controller
                 );
                 if ($user->save()) {
                     $this->flash->success('user Added successFully .Email Token : ' .
-                        $this->di->get('EventsManager')->fire('notifications:generateToken', $this, $role));
+                        $this->di->get('EventsManager')->fire('notifications:generateToken', $this, array('name' => $name, 'role' => $role)));
                     return;
                 } else {
                     $this->flash->error("One or More field is empty.");
