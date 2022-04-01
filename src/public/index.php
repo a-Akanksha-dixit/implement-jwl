@@ -14,6 +14,7 @@ use Phalcon\Config\ConfigFactory;
 use Phalcon\Escaper;
 use Phalcon\Flash\Direct as FlashDirect;
 use Phalcon\Events\Manager as EventsManager;
+use App\Components\Locale;
 use Phalcon\Mvc\Router;
 
 $config = new Config([]);
@@ -36,7 +37,15 @@ $loader->register();
 
 $container = new FactoryDefault();
 
-
+/**
+ * register namespace service
+ */
+$loader->registerNamespaces(
+    [
+        'App\Components' => APP_PATH . '/components',
+        'App\Listeners' => APP_PATH . '/listener',
+    ]
+);
 
 $container->set(
     'view',
@@ -46,6 +55,7 @@ $container->set(
         return $view;
     }
 );
+$container->set('locale', (new App\Components\Locale())->getTranslator());
 
 $container->set(
     'url',
@@ -96,15 +106,7 @@ $container->set(
         return new Escaper();
     }
 );
-/**
- * register namespace service
- */
-$loader->registerNamespaces(
-    [
-        'App\Components' => APP_PATH . '/components',
-        'App\Listeners' => APP_PATH . '/listener',
-    ]
-);
+
 $container->set(
     'dateTime',
     function () {

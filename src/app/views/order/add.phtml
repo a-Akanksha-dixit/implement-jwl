@@ -7,7 +7,8 @@
     <form method="post">
         <fieldset>
             <!-- Form Name -->
-            <legend class="h1 text-warning">Add new Order</legend>
+            <?php echo '<legend class="h1 text-warning">' . $this->locale->_('ad_order') . '</legend>'; ?>
+            <!-- <legend class="h1 text-warning">Add new Order</legend> -->
             <!-- Text input-->
             <div class="form-group">
                 <label class="col-md-4 control-label" for="customer_name">Customer NAME</label>

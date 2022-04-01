@@ -138,7 +138,12 @@ class NotificationsListener extends Injectable
                     $route = $this->router->getControllerName() ?? 'index';
                     $action = $this->router->getActionName() ?? 'index';
                     if (true !== $acl->isAllowed($role, $route, $action)) {
-                        echo "<h1>Hello " . $name . " You do not have access to this page.</h1>";
+                        echo "<h1>" . $this->locale->_(
+                            'ad-name',
+                            [
+                                'name' => $name,
+                            ]
+                        ) . "</h1>";
                         echo $this->tag->linkTo([
                             "index/index",
                             "Return to Home Page",
@@ -149,7 +154,7 @@ class NotificationsListener extends Injectable
                     $this->di->get('EventsManager')->fire('notifications:getPermissions', $this);
                 }
             } catch (Exception $e) {
-                echo '<h1>Token validation failed.</h1>';
+                echo "<h1>" . $this->locale->_('tf') . "</h1>";
                 echo $this->tag->linkTo([
                     "index/index",
                     "Return to Home Page",
@@ -157,8 +162,8 @@ class NotificationsListener extends Injectable
                 die;
             }
         } else {
-            echo '<h1>Bearer is not found</h1>';
-            die;
+            // echo "<h1>".$this->locale->_('bnf')."</h1>";
+            // die;
         }
     }
 

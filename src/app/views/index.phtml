@@ -95,10 +95,20 @@
             </nav>
             <!-- navbar end -->
         </header>
+        <form>
+            <select id="dropdown" style="background-color:lightblue" name="lan" onchange="form.submit()">
+                <option value="en">English</option>
+                <option value="hindi">Hindi</option>
+                <option value="korean">Korean</option>
+            </select>
+
+        </form>
+
         <?php echo $this->getContent();
         echo PHP_EOL;
         ?>
     </div>
+    <script src="script.js"></script>
 </body>
 
 </html>
