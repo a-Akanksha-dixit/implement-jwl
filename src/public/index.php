@@ -57,6 +57,33 @@ $container->set(
 );
 $container->set('locale', (new App\Components\Locale())->getTranslator());
 
+/**
+ * register logger for login log
+ */
+$container->set(
+    'loginLogger',
+    function () {
+        $adapter2 = new \Phalcon\Logger\Adapter\Stream(APP_PATH . '/storage/logs/login.log');
+        return new Logger(
+            'messages',
+            [
+                'main' => $adapter2,
+            ]
+        );
+    }
+);
+$container->set(
+    'signupLogger',
+    function () {
+        $adapter1 = new \Phalcon\Logger\Adapter\Stream(APP_PATH . '/storage/logs/signup.log');
+        return new Logger(
+            'messages',
+            [
+                'main' => $adapter1,
+            ]
+        );
+    }
+);
 $container->set(
     'url',
     function () {

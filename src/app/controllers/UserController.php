@@ -32,9 +32,11 @@ class UserController extends Controller
                     return;
                 } else {
                     $this->flash->error("One or More field is empty.");
+                    $this->signupLogger->error($user->getMessages());
                 }
             } catch (Exception $e) {
                 $this->flash->error($e);
+                $this->signupLogger->error("This E-mail is already registered with us.");
             }
         }
     }
