@@ -24,4 +24,9 @@ class SettingTask extends Task
         $setting->save();
         echo 'Default stock is set to '.$stock;
     }
+    public function removeAclAction()
+    {
+        $aclFile = APP_PATH . '/security/acl.cache';
+        unlink($aclFile);
+    }
 }
