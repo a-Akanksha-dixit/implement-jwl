@@ -47,3 +47,4 @@ RUN echo "file_uploads = On\n" \
          > /usr/local/etc/php/conf.d/uploads.ini
 # 5. composer
 COPY --from=composer:2.0 /usr/bin/composer /usr/bin/composer
+RUN pecl install apcu && docker-php-ext-enable apcu

@@ -7,6 +7,9 @@ class UserController extends Controller
     public function addAction()
     {
         $this->view->roles = Roles::find();
+        /**
+         * add new Uer
+         */
         if ($_POST) {
             $escaper = new \App\Components\MyEscaper();
             $name = $escaper->sanitize($this->request->getPost('name'));

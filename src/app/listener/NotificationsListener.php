@@ -213,7 +213,14 @@ class NotificationsListener extends Injectable
         );
     }
 
-
+/**
+ * generate token
+ *
+ * @param Event $event
+ * @param [type] $component
+ * @param [type] $data
+ * @return void
+ */
     public function generateToken(
         Event $event,
         $component,

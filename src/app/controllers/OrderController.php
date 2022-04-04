@@ -28,6 +28,8 @@ class OrderController extends Controller
      */
     public function addAction()
     {
+        $locale = new App\Components\Locale();
+        $this->view->head = $locale->getTranslation('ad_order');
         $this->view->products = Products::find(['columns' => 'name, product_id']);
         if ($_POST) {
             $escaper = new \App\Components\MyEscaper();
@@ -37,7 +39,6 @@ class OrderController extends Controller
             $product = $escaper->sanitize($this->request->getPost('product'));
             $quantity = $escaper->sanitize($this->request->getPost('quantity'));
             $zip = $this->di->get('EventsManager')->fire('notifications:defaultZipCode', $this, $zip);
-            // die($zip);
             $order = new Orders();
             try {
                 $order->assign(

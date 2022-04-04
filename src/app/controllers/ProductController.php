@@ -20,6 +20,8 @@ class ProductController extends Controller
      */
     public function addAction()
     {
+        $locale = new App\Components\Locale();
+        $this->view->head = $locale->getTranslation('ad_product');
         if ($_POST) {
             $escaper = new \App\Components\MyEscaper();
             $name = $escaper->sanitize($this->request->getPost('product_name'));

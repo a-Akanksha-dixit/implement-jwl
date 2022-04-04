@@ -28,12 +28,30 @@ class Locale extends Injectable
 
         $interpolator = new InterpolatorFactory();
         $factory      = new TranslateFactory($interpolator);
-
+        $cache = $this->cache;
+        $cache->setMultiple($messages);
         return $factory->newInstance(
             'array',
             [
                 'content' => $messages,
             ]
         );
+    }
+
+    /**
+     * get translation from cache or .php file
+     *
+     * @param [type] $string
+     * @return [type] $string
+     */
+    public function getTranslation($string)
+    {
+        $cache = $this->cache;
+        if ($cache->has($string)) {
+            return 'cache '.$cache->get($string);
+        } else {
+            $data = $this->di->get('locale')->_($string);
+            return 'trans '.$data;
+        }
     }
 }

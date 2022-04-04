@@ -14,15 +14,16 @@ use Phalcon\Config\ConfigFactory;
 use Phalcon\Escaper;
 use Phalcon\Flash\Direct as FlashDirect;
 use Phalcon\Events\Manager as EventsManager;
-use App\Components\Locale;
-use Phalcon\Mvc\Router;
+use Phalcon\Cache;
+use Phalcon\Cache\AdapterFactory;
+use Phalcon\Storage\SerializerFactory;
 
 $config = new Config([]);
 
 // Define some absolute path constants to aid in locating resources
 define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/app');
-require_once BASE_PATH.'/vendor/autoload.php';
+require_once BASE_PATH . '/vendor/autoload.php';
 // Register an autoloader
 $loader = new Loader();
 
@@ -55,7 +56,7 @@ $container->set(
         return $view;
     }
 );
-$container->set('locale', (new App\Components\Locale())->getTranslator());
+
 
 $container->set(
     'url',
@@ -113,6 +114,29 @@ $container->set(
         return new DateTimeImmutable();
     }
 );
+//Register cache service
+$container->setShared(
+    'cache',
+    function () {
+        $serializerFactory = new SerializerFactory();
+        $adapterFactory    = new AdapterFactory($serializerFactory);
+
+        $options = [
+            'defaultSerializer' => 'Json',
+            'lifetime'          => 7200
+        ];
+
+        $adapter = $adapterFactory->newInstance('apcu', $options);
+
+        $cache = new Cache($adapter);
+        return $cache;
+    }
+);
+$container->set(
+    'locale',
+    (new App\Components\Locale())->getTranslator()
+);
+
 // Register the flash service with custom CSS classes
 $container->set(
     'flash',
